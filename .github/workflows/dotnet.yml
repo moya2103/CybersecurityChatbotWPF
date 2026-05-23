@@ -1,7 +1,9 @@
-name: .NET Build
+name: .NET Build WPF
 
 on:
   push:
+    branches: [ main, master ]
+  pull_request:
     branches: [ main, master ]
 
 jobs:
@@ -10,11 +12,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+    
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
+    
+    - name: Build WPF Application
+      run: |
+        dotnet build --configuration Release
+        dotnet build --no-restore --configuration Release
