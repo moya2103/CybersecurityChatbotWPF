@@ -49,6 +49,49 @@ namespace CybersecurityChatbotWPF
             UserName = name;
         }
 
+        // Handle task-related commands (NLP simulation)
+        private string HandleTaskCommands(string lowerInput)
+        {
+            // Check for task commands with different phrasing
+            if (lowerInput.Contains("add task") || lowerInput.Contains("create task") ||
+                lowerInput.Contains("new task") || lowerInput.Contains("add a task"))
+            {
+                return "To add a task, go to the Tasks tab and fill in the title and description. I will save it to your task list.";
+            }
+
+            if (lowerInput.Contains("show tasks") || lowerInput.Contains("view tasks") ||
+                lowerInput.Contains("my tasks") || lowerInput.Contains("task list"))
+            {
+                return "You can view all your tasks in the Tasks tab. I will show you both pending and completed tasks.";
+            }
+
+            if (lowerInput.Contains("complete task") || lowerInput.Contains("finish task") ||
+                lowerInput.Contains("mark done") || lowerInput.Contains("task complete"))
+            {
+                return "To mark a task as complete, go to the Tasks tab, select the task, and click 'Mark Complete'.";
+            }
+
+            if (lowerInput.Contains("delete task") || lowerInput.Contains("remove task") ||
+                lowerInput.Contains("task delete"))
+            {
+                return "To delete a task, go to the Tasks tab, select the task, and click 'Delete Task'.";
+            }
+
+            if (lowerInput.Contains("show activity log") || lowerInput.Contains("what have you done") ||
+                lowerInput.Contains("activity log") || lowerInput.Contains("log"))
+            {
+                return "I have logged all my actions. You can view the Activity Log tab for a summary of what I have done for you.";
+            }
+
+            if (lowerInput.Contains("start quiz") || lowerInput.Contains("take quiz") ||
+                lowerInput.Contains("do quiz") || lowerInput.Contains("quiz"))
+            {
+                return "To start the quiz, go to the Quiz tab and click 'Start Quiz'. There are 12 cybersecurity questions to test your knowledge.";
+            }
+
+            return null;
+        }
+
         // Main method that processes user input and returns a response
         public string GetResponse(string userInput)
         {
@@ -58,7 +101,18 @@ namespace CybersecurityChatbotWPF
                 return "I did not catch that. Please say something.";
             }
 
+            // Convert to lowercase and trim ONCE at the beginning
             string lowerInput = userInput.ToLower().Trim();
+
+            // =====================================================
+            // NLP SIMULATION - Handle task-related commands
+            // =====================================================
+            string taskResponse = HandleTaskCommands(lowerInput);
+            if (taskResponse != null)
+            {
+                LastTopic = "task";
+                return taskResponse;
+            }
 
             // =====================================================
             // SENTIMENT DETECTION - Detects user emotions
@@ -146,6 +200,24 @@ namespace CybersecurityChatbotWPF
                     };
                     return tips[random.Next(tips.Length)];
                 }
+                else if (UserInterest == "phishing")
+                {
+                    string[] tips = {
+                        $"Since you are interested in phishing, {UserName}, always verify the sender's email address before opening any links.",
+                        $"For someone learning about phishing, {UserName}, remember that legitimate companies never ask for passwords via email.",
+                        $"As a phishing awareness learner, {UserName}, look for spelling and grammar mistakes in suspicious emails."
+                    };
+                    return tips[random.Next(tips.Length)];
+                }
+                else
+                {
+                    string[] tips = {
+                        $"Since you are interested in cybersecurity, {UserName}, always keep your software updated to patch security vulnerabilities.",
+                        $"For a cybersecurity learner like you, {UserName}, enable two-factor authentication on all accounts that offer it.",
+                        $"As someone interested in online safety, {UserName}, use a password manager to generate and store strong passwords."
+                    };
+                    return tips[random.Next(tips.Length)];
+                }
             }
 
             // =====================================================
@@ -162,13 +234,21 @@ namespace CybersecurityChatbotWPF
                 {
                     return "More about phishing: Scammers often create fake websites that look exactly like real ones. Always check the website address carefully. Look for the padlock icon in your browser and be careful of messages that say 'urgent' or 'your account will be closed'.";
                 }
-                else if (LastTopic == "browsing")
+                else if (LastTopic == "browsing" || LastTopic == "safe browsing")
                 {
                     return "More safe browsing tips: Use ad-blockers and privacy extensions in your browser. Clear your cookies and browsing history regularly. Do not save your passwords in your browser - use a password manager instead.";
+                }
+                else if (LastTopic == "privacy")
+                {
+                    return "More about privacy: Review your app permissions regularly. Many apps request access to your location, contacts, and camera. Only grant permissions that are necessary for the app to function properly.";
                 }
                 else if (LastTopic == "worried")
                 {
                     return "To help with your concerns, here are three simple steps to follow: First, use unique passwords for each account. Second, enable two-factor authentication. Third, never click on suspicious links in emails or text messages. These three habits will protect you from most common online threats.";
+                }
+                else if (LastTopic == "task")
+                {
+                    return "You can manage tasks in the Tasks tab. You can add, complete, and delete tasks. All tasks are stored in the database so they persist even after you close the application.";
                 }
                 else
                 {
@@ -185,6 +265,14 @@ namespace CybersecurityChatbotWPF
                 else if (LastTopic == "phishing")
                 {
                     return "Another phishing tip: Hover your mouse over any link before clicking to see where it really goes. If the web address looks strange or has spelling mistakes, do not click on it.";
+                }
+                else if (LastTopic == "privacy")
+                {
+                    return "Another privacy tip: Use a VPN when connecting to public Wi-Fi networks. This encrypts your internet traffic and protects your personal information from being intercepted.";
+                }
+                else if (LastTopic == "browsing" || LastTopic == "safe browsing")
+                {
+                    return "Another safe browsing tip: Keep your browser updated to the latest version. Updates often include important security fixes that protect you from new threats.";
                 }
                 else
                 {
@@ -218,7 +306,7 @@ namespace CybersecurityChatbotWPF
 
             if (lowerInput.Contains("what can i ask") || lowerInput.Contains("help"))
             {
-                return "Here is what I can help you with:\n\n- password : Get password safety tips\n- phishing : Learn to spot fake emails and scams\n- privacy : Get privacy protection tips\n- safe browsing : Learn to browse the web safely\n- tip : Get random cybersecurity advice\n- joke : Hear a cybersecurity joke\n- I am interested in... : I will remember your interest\n- tell me more : Follow up on a topic\n\nJust type a command to get started.";
+                return "Here is what I can help you with:\n\n- password : Get password safety tips\n- phishing : Learn to spot fake emails and scams\n- privacy : Get privacy protection tips\n- safe browsing : Learn to browse the web safely\n- tip : Get random cybersecurity advice\n- joke : Hear a cybersecurity joke\n- I am interested in... : I will remember your interest\n- tell me more : Follow up on a topic\n- add task : Add a new task\n- show tasks : View your tasks\n- start quiz : Take the cybersecurity quiz\n\nJust type a command to get started.";
             }
 
             // =====================================================
@@ -266,7 +354,7 @@ namespace CybersecurityChatbotWPF
 
             if (lowerInput.Contains("safe browsing") || lowerInput.Contains("browsing") || lowerInput.Contains("browser"))
             {
-                LastTopic = "browsing";
+                LastTopic = "safe browsing";
                 string[] responses = {
                     "Safe browsing: Always look for 'https://' and the padlock icon in the address bar before entering any personal information on a website.",
                     "Safe browsing: Avoid using public Wi-Fi for banking or other sensitive activities. If you must use public Wi-Fi, use a VPN.",
@@ -320,8 +408,10 @@ namespace CybersecurityChatbotWPF
                 return $"Cybersecurity tip:\n\n{tips[random.Next(tips.Length)]}";
             }
 
-            // Default response for unrecognized input
-            return "I did not understand that. Could you please rephrase?\n\nTry asking about:\n- password for safety tips\n- phishing to spot scams\n- privacy for privacy tips\n- safe browsing for web safety\n- tip for cybersecurity advice\n- joke for a laugh\n- fun fact to learn something new\n- help to see all options";
+            // =====================================================
+            // DEFAULT RESPONSE
+            // =====================================================
+            return "I did not understand that. Could you please rephrase?\n\nTry asking about:\n- password for safety tips\n- phishing to spot scams\n- privacy for privacy tips\n- safe browsing for web safety\n- tip for cybersecurity advice\n- joke for a laugh\n- fun fact to learn something new\n- add task to create a new task\n- start quiz to test your knowledge\n- help to see all options";
         }
     }
 }
