@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="CyberBot - Cybersecurity Awareness Assistant" 
-        Height="600" Width="800"
+        Height="700" Width="900"
         WindowStartupLocation="CenterScreen"
         Background="#1A1A2E">
 
@@ -14,98 +14,298 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Title / ASCII Art Section -->
-        <Border Grid.Row="0" Background="#16213E" CornerRadius="10" Margin="0,0,0,10" Padding="10">
-            <TextBlock x:Name="txtTitle" 
-                       Text="CYBERSECURITY AWARENESS BOT"
-                       FontSize="20" 
-                       FontWeight="Bold"
-                       Foreground="#00B4D8"
-                       HorizontalAlignment="Center"
-                       FontFamily="Consolas"/>
-        </Border>
+        <!-- Tab Control for switching between features -->
+        <TabControl Grid.Row="1" Background="#0F3460" BorderThickness="0">
+            <TabItem Header="Chat" Background="#1A1A2E" Foreground="White">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-        <!-- Chat History Display -->
-        <Border Grid.Row="1" Background="#0F3460" CornerRadius="10" Padding="10">
-            <RichTextBox x:Name="txtChatHistory" 
-                         IsReadOnly="True"
-                         Background="#0F3460"
-                         Foreground="#E0E0E0"
-                         FontFamily="Consolas"
-                         FontSize="14"
-                         BorderThickness="0">
-                <RichTextBox.Resources>
-                    <Style TargetType="{x:Type Paragraph}">
-                        <Setter Property="Margin" Value="0"/>
-                    </Style>
-                </RichTextBox.Resources>
-            </RichTextBox>
-        </Border>
+                    <Border Grid.Row="0" Background="#16213E" CornerRadius="5" Margin="0,0,0,10" Padding="10">
+                        <TextBlock x:Name="txtTitle" 
+                                   Text="CYBERSECURITY AWARENESS BOT"
+                                   FontSize="18" FontWeight="Bold"
+                                   Foreground="#00B4D8"
+                                   HorizontalAlignment="Center"
+                                   FontFamily="Consolas"/>
+                    </Border>
 
-        <!-- User Input Area -->
-        <Grid Grid.Row="2" Margin="0,10,0,10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+                    <Border Grid.Row="1" Background="#0F3460" CornerRadius="5" Padding="10">
+                        <RichTextBox x:Name="txtChatHistory" 
+                                     IsReadOnly="True"
+                                     Background="#0F3460"
+                                     Foreground="#E0E0E0"
+                                     FontFamily="Consolas"
+                                     FontSize="13"
+                                     BorderThickness="0">
+                            <RichTextBox.Resources>
+                                <Style TargetType="{x:Type Paragraph}">
+                                    <Setter Property="Margin" Value="0"/>
+                                </Style>
+                            </RichTextBox.Resources>
+                        </RichTextBox>
+                    </Border>
 
-            <TextBox x:Name="txtUserInput" 
-                     Grid.Column="0"
-                     Height="40"
-                     VerticalContentAlignment="Center"
-                     FontSize="14"
-                     FontFamily="Consolas"
-                     Background="#16213E"
-                     Foreground="#E0E0E0"
-                     BorderBrush="#00B4D8"
-                     BorderThickness="2"
-                     KeyDown="txtUserInput_KeyDown">
-                <TextBox.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
+                    <Grid Grid.Row="2" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-            <Button x:Name="btnSend" 
-                    Grid.Column="1"
-                    Content="SEND"
-                    Width="80"
-                    Height="40"
-                    Margin="5,0,5,0"
-                    Background="#00B4D8"
-                    Foreground="White"
-                    FontWeight="Bold"
-                    Click="btnSend_Click">
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
+                        <TextBox x:Name="txtUserInput" 
+                                 Grid.Column="0"
+                                 Height="35"
+                                 VerticalContentAlignment="Center"
+                                 FontSize="13"
+                                 FontFamily="Consolas"
+                                 Background="#16213E"
+                                 Foreground="#E0E0E0"
+                                 BorderBrush="#00B4D8"
+                                 BorderThickness="2"
+                                 KeyDown="txtUserInput_KeyDown"/>
 
-            <Button x:Name="btnExit" 
-                    Grid.Column="2"
-                    Content="EXIT"
-                    Width="80"
-                    Height="40"
-                    Background="#E94560"
-                    Foreground="White"
-                    FontWeight="Bold"
-                    Click="btnExit_Click">
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-        </Grid>
+                        <Button x:Name="btnSend" 
+                                Grid.Column="1"
+                                Content="Send"
+                                Width="70"
+                                Height="35"
+                                Margin="5,0,5,0"
+                                Background="#00B4D8"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                Click="btnSend_Click"/>
+
+                        <Button x:Name="btnExit" 
+                                Grid.Column="2"
+                                Content="Exit"
+                                Width="70"
+                                Height="35"
+                                Background="#E94560"
+                                Foreground="White"
+                                FontWeight="Bold"
+                                Click="btnExit_Click"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- Task Assistant Tab -->
+            <TabItem Header="Tasks" Background="#1A1A2E" Foreground="White">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Task Assistant" 
+                               FontSize="18" FontWeight="Bold"
+                               Foreground="#00B4D8"
+                               Margin="0,0,0,10"/>
+
+                    <Border Grid.Row="1" Background="#16213E" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Title:" Foreground="#00B4D8" Margin="0,0,10,5"/>
+                            <TextBox x:Name="txtTaskTitle" Grid.Row="0" Grid.Column="1" 
+                                     Background="#0F3460" Foreground="White" 
+                                     BorderBrush="#00B4D8" BorderThickness="1"
+                                     Height="30" Margin="0,0,10,5"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Description:" Foreground="#00B4D8" Margin="0,0,10,5"/>
+                            <TextBox x:Name="txtTaskDescription" Grid.Row="1" Grid.Column="1" 
+                                     Background="#0F3460" Foreground="White" 
+                                     BorderBrush="#00B4D8" BorderThickness="1"
+                                     Height="30" Margin="0,0,10,5"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Due Date:" Foreground="#00B4D8" Margin="0,0,10,5"/>
+                            <DatePicker x:Name="dpDueDate" Grid.Row="2" Grid.Column="1" 
+                                        Background="#0F3460" Foreground="White"
+                                        BorderBrush="#00B4D8" BorderThickness="1"
+                                        Height="30" Margin="0,0,10,5"/>
+
+                            <Button x:Name="btnAddTask" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3"
+                                    Content="Add Task" Width="100"
+                                    Background="#00B4D8" Foreground="White"
+                                    FontWeight="Bold" Click="btnAddTask_Click"/>
+                        </Grid>
+                    </Border>
+
+                    <ListView x:Name="lstTasks" Grid.Row="2" 
+                              Background="#0F3460" Foreground="White"
+                              BorderBrush="#00B4D8" BorderThickness="1">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="40" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Header="Title" Width="150" DisplayMemberBinding="{Binding Title}"/>
+                                <GridViewColumn Header="Description" Width="200" DisplayMemberBinding="{Binding Description}"/>
+                                <GridViewColumn Header="Due Date" Width="100" DisplayMemberBinding="{Binding DueDate}"/>
+                                <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding Status}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Grid Grid.Row="3" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="btnCompleteTask" Grid.Column="0"
+                                Content="Mark Complete" Width="120"
+                                Background="#00B4D8" Foreground="White"
+                                FontWeight="Bold" Margin="0,0,10,0"
+                                Click="btnCompleteTask_Click"/>
+
+                        <Button x:Name="btnDeleteTask" Grid.Column="1"
+                                Content="Delete Task" Width="100"
+                                Background="#E94560" Foreground="White"
+                                FontWeight="Bold" Margin="0,0,10,0"
+                                Click="btnDeleteTask_Click"/>
+
+                        <Button x:Name="btnRefreshTasks" Grid.Column="2"
+                                Content="Refresh" Width="80"
+                                Background="#16213E" Foreground="#00B4D8"
+                                BorderBrush="#00B4D8" BorderThickness="1"
+                                HorizontalAlignment="Right"
+                                Click="btnRefreshTasks_Click"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- Quiz Tab -->
+            <TabItem Header="Quiz" Background="#1A1A2E" Foreground="White">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Cybersecurity Quiz" 
+                               FontSize="18" FontWeight="Bold"
+                               Foreground="#00B4D8"
+                               Margin="0,0,0,10"/>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="txtQuizProgress" Grid.Column="0" 
+                                   Text="Question 1 of 12" Foreground="#00B4D8" FontSize="14"/>
+                        <TextBlock x:Name="txtQuizScore" Grid.Column="1" 
+                                   Text="Score: 0" Foreground="#E94560" FontSize="14"/>
+                    </Grid>
+
+                    <Border Grid.Row="2" Background="#16213E" CornerRadius="5" Padding="15">
+                        <StackPanel>
+                            <TextBlock x:Name="txtQuizQuestion" 
+                                       Text="Click Start Quiz to begin" 
+                                       FontSize="16" Foreground="White"
+                                       TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+                            <RadioButton x:Name="rbOptionA" GroupName="QuizOptions" 
+                                         Foreground="White" FontSize="14" Margin="0,5"/>
+                            <RadioButton x:Name="rbOptionB" GroupName="QuizOptions" 
+                                         Foreground="White" FontSize="14" Margin="0,5"/>
+                            <RadioButton x:Name="rbOptionC" GroupName="QuizOptions" 
+                                         Foreground="White" FontSize="14" Margin="0,5"/>
+                            <RadioButton x:Name="rbOptionD" GroupName="QuizOptions" 
+                                         Foreground="White" FontSize="14" Margin="0,5"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Grid Grid.Row="3" Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="btnStartQuiz" Grid.Column="0"
+                                Content="Start Quiz" Width="100"
+                                Background="#00B4D8" Foreground="White"
+                                FontWeight="Bold" HorizontalAlignment="Left"
+                                Click="btnStartQuiz_Click"/>
+
+                        <Button x:Name="btnSubmitAnswer" Grid.Column="1"
+                                Content="Submit Answer" Width="120"
+                                Background="#00B4D8" Foreground="White"
+                                FontWeight="Bold" Margin="0,0,10,0"
+                                Click="btnSubmitAnswer_Click"/>
+
+                        <Button x:Name="btnNextQuestion" Grid.Column="2"
+                                Content="Next Question" Width="120"
+                                Background="#16213E" Foreground="#00B4D8"
+                                BorderBrush="#00B4D8" BorderThickness="1"
+                                Click="btnNextQuestion_Click"/>
+                    </Grid>
+
+                    <TextBlock x:Name="txtQuizFeedback" Grid.Row="4"
+                               Foreground="#00B4D8" FontSize="13"
+                               Margin="0,10,0,0" TextWrapping="Wrap"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Activity Log Tab -->
+            <TabItem Header="Activity Log" Background="#1A1A2E" Foreground="White">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Activity Log" 
+                               FontSize="18" FontWeight="Bold"
+                               Foreground="#00B4D8"
+                               Margin="0,0,0,10"/>
+
+                    <ListView x:Name="lstActivityLog" Grid.Row="1" 
+                              Background="#0F3460" Foreground="White"
+                              BorderBrush="#00B4D8" BorderThickness="1">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Time" Width="150" DisplayMemberBinding="{Binding Timestamp}"/>
+                                <GridViewColumn Header="Action" Width="200" DisplayMemberBinding="{Binding Action}"/>
+                                <GridViewColumn Header="Details" Width="300" DisplayMemberBinding="{Binding Details}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Button x:Name="btnRefreshLog" Grid.Row="2"
+                            Content="Refresh Log" Width="100"
+                            Background="#16213E" Foreground="#00B4D8"
+                            BorderBrush="#00B4D8" BorderThickness="1"
+                            HorizontalAlignment="Right"
+                            Margin="0,10,0,0"
+                            Click="btnRefreshLog_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
         <!-- Status Bar -->
-        <Border Grid.Row="3" Background="#16213E" CornerRadius="5" Padding="5">
+        <Border Grid.Row="3" Background="#16213E" CornerRadius="5" Padding="5" Margin="0,10,0,0">
             <TextBlock x:Name="txtStatus" 
-                       Text="Ready to help you stay safe online!"
+                       Text="Ready" 
                        Foreground="#00B4D8"
                        FontSize="11"
                        FontFamily="Consolas"/>
