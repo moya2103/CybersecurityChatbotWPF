@@ -1,4 +1,4 @@
-# Cybersecurity Awareness Chatbot
+﻿# Cybersecurity Awareness Chatbot
 
 ## Project Overview
 A cybersecurity awareness chatbot developed for Programming 2A POE. The chatbot educates users about cybersecurity topics including password safety, phishing awareness, and safe browsing practices.
